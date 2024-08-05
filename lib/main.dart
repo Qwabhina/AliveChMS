@@ -1,9 +1,9 @@
 import 'package:alivechms/constants/color_scheme.dart';
 import 'package:alivechms/controllers/app_state.dart';
 import 'package:alivechms/screens/dashboard/dashboard_screen.dart';
-import 'package:alivechms/screens/login_screen.dart';
+import 'package:alivechms/screens/login/login_screen.dart';
 import 'package:alivechms/screens/onboarding_screen.dart';
-import 'package:alivechms/screens/settings_screen.dart';
+import 'package:alivechms/screens/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -28,14 +28,14 @@ class MainApp extends StatelessWidget {
           theme: ThemeData(
             useMaterial3: true,
             colorScheme: lightColorScheme,
-            textTheme: GoogleFonts.mavenProTextTheme(),
+            textTheme: GoogleFonts.montserratTextTheme(),
           ),
 
           // DARK THEME
           darkTheme: ThemeData(
             useMaterial3: true,
             colorScheme: darkColorScheme,
-            textTheme: GoogleFonts.mavenProTextTheme(),
+            textTheme: GoogleFonts.montserratTextTheme(),
           ),
 
           themeMode: myAppState.appThemeMode,
