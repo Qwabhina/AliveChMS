@@ -24,15 +24,17 @@ class DashboardScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // HEADER SECTION
-                const Padding(
-                  padding: EdgeInsets.only(left: 20, right: 20, top: 20),
-                  child: PageHeader(pageName: "Dashboard"),
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: PageHeader(pageName: appState.currentPage),
                 ),
                 Expanded(
                   child: Container(
-                    margin:
-                        const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                    padding: const EdgeInsets.all(20),
+                      margin: const EdgeInsets.only(
+                        left: 20,
+                        right: 20,
+                        bottom: 20,
+                      ),
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.background,
                       borderRadius: BorderRadius.circular(10),
