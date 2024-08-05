@@ -9,7 +9,7 @@ class MyAppState extends ChangeNotifier {
   bool isLoggedIn = false;
   bool isPasswordVisible = false;
   String errorMessage = '';
-  String currentPage = 'home';
+  String currentPage = 'Dashboard';
   int selectedIndex = 0;
   // StudentData? get currentUser => StudentData.fromMap(aspBox.get('user'));
   ThemeMode get appThemeMode => getAppTheme();
@@ -31,8 +31,9 @@ class MyAppState extends ChangeNotifier {
 
 
 
-  void setCurrentPage(int index) {
+  void setCurrentPage(int index, String title) {
     selectedIndex = index;
+    currentPage = title;
     notifyListeners();
   }
 
