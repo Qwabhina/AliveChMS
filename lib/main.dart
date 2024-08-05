@@ -5,7 +5,7 @@ import 'package:alivechms/screens/login/login_screen.dart';
 import 'package:alivechms/screens/onboarding_screen.dart';
 import 'package:alivechms/screens/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -28,14 +28,14 @@ class MainApp extends StatelessWidget {
           theme: ThemeData(
             useMaterial3: true,
             colorScheme: lightColorScheme,
-            textTheme: GoogleFonts.montserratTextTheme(),
+            // textTheme: GoogleFonts.syste(),
           ),
 
           // DARK THEME
           darkTheme: ThemeData(
             useMaterial3: true,
             colorScheme: darkColorScheme,
-            textTheme: GoogleFonts.montserratTextTheme(),
+            // textTheme: GoogleFonts.openSansTextTheme(),
           ),
 
           themeMode: myAppState.appThemeMode,
