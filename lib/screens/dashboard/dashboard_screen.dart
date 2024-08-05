@@ -1,8 +1,9 @@
 import 'package:alivechms/constants/widgets/page_header.dart';
+import 'package:alivechms/screens/dashboard/homepage.dart';
 import 'package:flutter/material.dart';
-import 'package:alivechms/screens/finance_screen.dart';
+import 'package:alivechms/screens/finance/finance_screen.dart';
 import 'package:alivechms/screens/profile_screen.dart';
-import 'package:alivechms/screens/settings_screen.dart';
+import 'package:alivechms/screens/settings/settings_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -15,6 +16,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   int _selectedIndex = 0;
 
   static const List<Widget> _pages = <Widget>[
+    HomepageScreen(),
     ProfilePage(),
     FinancePage(),
     SettingsPage(),
@@ -48,9 +50,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 ListTile(
                   leading: const Icon(Icons.person, color: Colors.white),
-                  title: const Text('Profile',
+                  title: const Text('Dashboard',
                       style: TextStyle(color: Colors.white)),
                   selected: _selectedIndex == 0,
+                  selectedTileColor: Colors.blue[700],
+                  onTap: () {
+                    _onItemTapped(0);
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.person, color: Colors.white),
+                  title: const Text('Profile',
+                      style: TextStyle(color: Colors.white)),
+                  selected: _selectedIndex == 1,
                   selectedTileColor: Colors.blue[700],
                   onTap: () {
                     _onItemTapped(0);
@@ -60,7 +72,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   leading: const Icon(Icons.attach_money, color: Colors.white),
                   title: const Text('Finance',
                       style: TextStyle(color: Colors.white)),
-                  selected: _selectedIndex == 1,
+                  selected: _selectedIndex == 2,
                   selectedTileColor: Colors.blue[700],
                   onTap: () {
                     _onItemTapped(1);
@@ -70,7 +82,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   leading: const Icon(Icons.settings, color: Colors.white),
                   title: const Text('Settings',
                       style: TextStyle(color: Colors.white)),
-                  selected: _selectedIndex == 2,
+                  selected: _selectedIndex == 3,
                   selectedTileColor: Colors.blue[700],
                   onTap: () {
                     _onItemTapped(2);
