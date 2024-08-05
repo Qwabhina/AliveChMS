@@ -1,3 +1,7 @@
+import 'package:alivechms/screens/dashboard/homepage.dart';
+import 'package:alivechms/screens/finance/finance_screen.dart';
+import 'package:alivechms/screens/profile_screen.dart';
+import 'package:alivechms/screens/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
 
 class MyAppState extends ChangeNotifier {
@@ -5,7 +9,8 @@ class MyAppState extends ChangeNotifier {
   bool isLoggedIn = false;
   bool isPasswordVisible = false;
   String errorMessage = '';
-  String currentPage = 'profile';
+  String currentPage = 'home';
+  int selectedIndex = 0;
   // StudentData? get currentUser => StudentData.fromMap(aspBox.get('user'));
   ThemeMode get appThemeMode => getAppTheme();
 
@@ -23,4 +28,18 @@ class MyAppState extends ChangeNotifier {
     // return themes[theme]!;
     return ThemeMode.light;
   }
+
+
+
+  void setCurrentPage(int index) {
+    selectedIndex = index;
+    notifyListeners();
+  }
+
+  final List<Widget> drawerPages = <Widget>[
+    const HomepageScreen(),
+    const ProfilePage(),
+    const FinancePage(),
+    const SettingsPage(),
+  ];
 }
