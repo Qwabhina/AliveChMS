@@ -23,7 +23,7 @@ class PageHeader extends StatelessWidget {
             Text(
               pageName,
               style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.primaryContainer,
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
               ),
@@ -38,12 +38,12 @@ class PageHeader extends StatelessWidget {
               height: 30,
               width: 60,
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.primaryContainer,
                 borderRadius: BorderRadius.circular(5),
               ),
             ),
           ],
-        )
+        ),
       ],
     );
   }
