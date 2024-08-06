@@ -9,14 +9,17 @@ class AppDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     // MyAppState appState = Provider.of<MyAppState>(context);
     return Consumer<MyAppState>(builder: (context, appState, child) {
-    return Container(
+      return Container(
         width: 300,
-        color: Theme.of(context).colorScheme.background,
+        // color: Theme.of(context).colorScheme.surface,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surface,
+        ),
         child: ListView(
         children: [
             DrawerHeader(
             decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.background,
+              color: Theme.of(context).colorScheme.surface,
             ),
               child: const Text('Menu', style: TextStyle(color: Colors.white)),
           ),
@@ -63,9 +66,9 @@ class AppDrawer extends StatelessWidget {
               onTap: () => appState.setCurrentPage(6, 'Settings'),
           ),
           const Spacer(), // Ensures footer buttons are positioned at the bottom
-        ],
+        ]
       ),
-    );
+      );
     });
   }
 }
@@ -86,9 +89,9 @@ class AppDrawerItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Padding(
       padding: const EdgeInsets.only(left: 35),
-      color: Theme.of(context).colorScheme.background,
+      // color: Theme.of(context).colorScheme.surface,
       child: ListTile(
         selectedTileColor: Theme.of(context).colorScheme.secondary,
         selected: selected,
@@ -104,7 +107,7 @@ class AppDrawerItem extends StatelessWidget {
                     color: Theme.of(context).colorScheme.tertiary,
                     fontWeight: FontWeight.bold)
                 : TextStyle(
-                    color: Theme.of(context).colorScheme.onBackground,
+                    color: Theme.of(context).colorScheme.onSurface,
                   )),
         hoverColor: Theme.of(context).colorScheme.secondary,
         onTap: onTap,

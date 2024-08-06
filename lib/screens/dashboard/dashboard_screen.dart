@@ -36,7 +36,7 @@ class DashboardScreen extends StatelessWidget {
                         bottom: 20,
                       ),
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.background,
+                        color: Theme.of(context).colorScheme.surface,
                       borderRadius: BorderRadius.circular(10),
                     ),
                       child: appState.drawerPages
