@@ -2,6 +2,7 @@ import 'package:alivechms/constants/app_constants.dart';
 import 'package:alivechms/controllers/app_state.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -47,43 +48,43 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
             AppDrawerItem(
-              icon: Icons.dashboard,
+            icon: Ionicons.apps,
               title: 'Dashboard',
               selected: appState.selectedIndex == 0,
               onTap: () => appState.setCurrentPage(0, 'Dashboard'),
           ),
             AppDrawerItem(
-              icon: Icons.group_add,
+            icon: Icons.group_add_rounded,
               title: 'Members & People',
               selected: appState.selectedIndex == 1,
               onTap: () => appState.setCurrentPage(1, 'Members & People'),
           ),
             AppDrawerItem(
-            icon: Icons.group,
+            icon: Ionicons.people,
               title: 'Groups',
               selected: appState.selectedIndex == 2,
               onTap: () => appState.setCurrentPage(2, 'Groups'),
             ),
             AppDrawerItem(
-              icon: Icons.dashboard,
+            icon: Ionicons.cash,
               title: 'Contributions',
               selected: appState.selectedIndex == 3,
               onTap: () => appState.setCurrentPage(3, 'Contributions'),
             ),
             AppDrawerItem(
-              icon: Icons.dashboard,
+            icon: Ionicons.calendar,
               title: 'Events & Calendar',
               selected: appState.selectedIndex == 4,
               onTap: () => appState.setCurrentPage(4, 'Events & Calendar'),
             ),
             AppDrawerItem(
-              icon: Icons.dashboard,
+            icon: Icons.monetization_on,
               title: 'Finance',
               selected: appState.selectedIndex == 5,
               onTap: () => appState.setCurrentPage(5, 'Finance'),
             ),
             AppDrawerItem(
-              icon: Icons.dashboard,
+            icon: Icons.settings,
               title: 'Settings',
               selected: appState.selectedIndex == 6,
               onTap: () => appState.setCurrentPage(6, 'Settings'),
