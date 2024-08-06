@@ -1,4 +1,5 @@
 import 'package:alivechms/constants/widgets/app_drawer.dart';
+import 'package:alivechms/constants/widgets/app_titlebar.dart';
 import 'package:alivechms/constants/widgets/page_header.dart';
 import 'package:alivechms/controllers/app_state.dart';
 import 'package:flutter/material.dart';
@@ -23,18 +24,14 @@ class DashboardScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // HEADER SECTION
+                  const AppTitleBar(),
                   Padding(
-                    padding: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: PageHeader(pageName: appState.currentPage),
                 ),
                 Expanded(
                   child: Container(
-                      margin: const EdgeInsets.only(
-                        left: 20,
-                        right: 20,
-                        bottom: 20,
-                      ),
+                      margin: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.surface,
                       borderRadius: BorderRadius.circular(10),
