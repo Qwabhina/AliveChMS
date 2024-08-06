@@ -1,15 +1,34 @@
+import 'dart:io';
+
 import 'package:alivechms/constants/color_scheme.dart';
 import 'package:alivechms/controllers/app_state.dart';
 import 'package:alivechms/screens/dashboard/dashboard_screen.dart';
 import 'package:alivechms/screens/login/login_screen.dart';
 import 'package:alivechms/screens/onboarding_screen.dart';
 import 'package:alivechms/screens/settings/settings_screen.dart';
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:window_manager/window_manager.dart';
 
 void main() {
   runApp(const MainApp());
+
+  // SHOW WINDOW WITH CUSTOMIZED TITLE BAR
+  if (Platform.isWindows || Platform.isMacOS) {
+    doWhenWindowReady(() {
+      appWindow.size = const Size(1280, 720);
+      appWindow.minSize = const Size(1280, 720);
+      appWindow.alignment = Alignment.center;
+      appWindow.title = "AliveChMS";
+
+      windowManager.ensureInitialized();
+      windowManager.show();
+      windowManager.maximize();
+      windowManager.focus();
+    });
+  }
 }
 
 class MainApp extends StatelessWidget {
