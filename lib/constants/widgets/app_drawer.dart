@@ -1,4 +1,6 @@
+import 'package:alivechms/constants/app_constants.dart';
 import 'package:alivechms/controllers/app_state.dart';
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,19 +11,40 @@ class AppDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     // MyAppState appState = Provider.of<MyAppState>(context);
     return Consumer<MyAppState>(builder: (context, appState, child) {
-      return Container(
-        width: 300,
-        // color: Theme.of(context).colorScheme.surface,
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
-        ),
+      return Drawer(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
         child: ListView(
         children: [
             DrawerHeader(
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.surface,
             ),
-              child: const Text('Menu', style: TextStyle(color: Colors.white)),
+            child: MoveWindow(
+              child: Row(
+                children: [
+                  const SizedBox(width: 30),
+                  // IMAGE
+                  SizedBox(
+                    width: 60,
+                    child: ImgLinks.logoLight,
+                  ),
+
+                  // SPACER
+                  const SizedBox(width: 10),
+
+                  // TEXT
+                  Text(
+                    "MEANINGFUL LIFE\nCHRISTIAN CENTRE",
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.primaryContainer,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
             AppDrawerItem(
               icon: Icons.dashboard,
@@ -36,7 +59,7 @@ class AppDrawer extends StatelessWidget {
               onTap: () => appState.setCurrentPage(1, 'Members & People'),
           ),
             AppDrawerItem(
-              icon: Icons.dashboard,
+            icon: Icons.group,
               title: 'Groups',
               selected: appState.selectedIndex == 2,
               onTap: () => appState.setCurrentPage(2, 'Groups'),
@@ -89,29 +112,30 @@ class AppDrawerItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 35),
-      // color: Theme.of(context).colorScheme.surface,
-      child: ListTile(
-        selectedTileColor: Theme.of(context).colorScheme.secondary,
-        selected: selected,
-        leading: Icon(
-          icon,
-          color: selected
-              ? Theme.of(context).colorScheme.secondary
-              : Theme.of(context).colorScheme.tertiary,
-        ),
-        title: Text(title,
-            style: selected
-                ? TextStyle(
-                    color: Theme.of(context).colorScheme.tertiary,
-                    fontWeight: FontWeight.bold)
-                : TextStyle(
-                    color: Theme.of(context).colorScheme.onSurface,
-                  )),
-        hoverColor: Theme.of(context).colorScheme.secondary,
-        onTap: onTap,
+    return ListTile(
+      selectedTileColor: Colors.white,
+      selected: selected,
+      contentPadding: const EdgeInsets.only(left: 35),
+      leading: Icon(
+        icon,
+        color: selected
+            ? Theme.of(context).colorScheme.secondaryContainer
+            : Theme.of(context).colorScheme.primaryContainer,
       ),
+      title: Text(
+        title,
+        style: selected
+            ? TextStyle(
+                color: Theme.of(context).colorScheme.primaryContainer,
+                fontWeight: FontWeight.bold)
+            : const TextStyle(
+                // color: Theme.of(context).colorScheme.onSurface,
+                ),
+      ),
+      hoverColor: selected
+          ? Colors.white
+          : Theme.of(context).colorScheme.secondaryContainer,
+      onTap: onTap,
     );
   }
 }
