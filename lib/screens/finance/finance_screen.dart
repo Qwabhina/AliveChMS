@@ -5,6 +5,8 @@ class FinancePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return const Center(
+      child: Text('Finance Page', style: TextStyle(fontSize: 24)),
+    );
   }
 }
