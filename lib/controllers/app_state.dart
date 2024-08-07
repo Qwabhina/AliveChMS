@@ -1,6 +1,9 @@
+import 'package:alivechms/screens/contributions/contributions_screen.dart';
 import 'package:alivechms/screens/dashboard/homepage.dart';
+import 'package:alivechms/screens/events/events_screen.dart';
 import 'package:alivechms/screens/finance/finance_screen.dart';
-import 'package:alivechms/screens/profile_screen.dart';
+import 'package:alivechms/screens/groups/groups_screen.dart';
+import 'package:alivechms/screens/members/members_screen.dart';
 import 'package:alivechms/screens/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -39,7 +42,10 @@ class MyAppState extends ChangeNotifier {
 
   final List<Widget> drawerPages = <Widget>[
     const HomepageScreen(),
-    const ProfilePage(),
+    const MembersPage(),
+    const GroupsScreen(),
+    const ContributionsScreen(),
+    const EventsScreen(),
     const FinancePage(),
     const SettingsPage(),
   ];
