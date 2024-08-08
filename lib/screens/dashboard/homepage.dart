@@ -1,5 +1,7 @@
+import 'package:alivechms/constants/widgets/page_section_header.dart';
 import 'package:alivechms/screens/dashboard/dashboard_highlights.dart';
 import 'package:flutter/material.dart';
+
 
 class HomepageScreen extends StatelessWidget {
   const HomepageScreen({super.key});
@@ -28,22 +30,6 @@ class HomepageScreen extends StatelessWidget {
           ),
         )
       ]),
-    );
-  }
-}
-
-class PageSectionHeader extends StatelessWidget {
-  const PageSectionHeader({super.key, String text = ''}) : _text = text;
-
-  final String _text;
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      _text,
-      style: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-          color: Theme.of(context).colorScheme.primaryContainer),
     );
   }
 }
