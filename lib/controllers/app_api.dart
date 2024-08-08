@@ -49,7 +49,7 @@ class AppAPI {
       if (headers.isEmpty) {
         headers = Map<String, String>.from(options.headers);
         headers['Content-Type'] = 'application/json';
-        // headers['Authorization'] = 'Bearer ${AppController.userToken}';
+        headers['Authorization'] = 'Bearer ${AppController.userToken}';
       }
 
       // ADD IT TO THE HTTP OPTIONS
