@@ -16,43 +16,35 @@ class LoginPage extends StatelessWidget {
           Text("AliveChMS"),
         ],
         backgroundColor: Colors.white,
-        body: Column(
-          children: [
-            const AppTitleBar(),
-            Row(
-              children: [
-                Expanded(
-                    child: Container(
-                  padding: const EdgeInsets.all(20),
-                  color: Theme.of(context).colorScheme.inverseSurface,
-                )),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const HeroImage(),
-                      Card(
-                        color: Theme.of(context).colorScheme.surface,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16.0),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 28,
-                            vertical: 18,
-                          ),
-                          child: LoginForm(),
-                        ),
-                      ),
-                    ],
+          body: Column(
+            children: [
+              const AppTitleBar(),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    width: 420,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 42,
+                      vertical: 24,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.surface,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const HeroImage(),
+                        LoginForm(),
+                      ],
+                    ),
                   ),
                 ),
-              ],
-            ),
-          ],
-        ),
+              ),
+            ],
+)
       );
     });
   }
