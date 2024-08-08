@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:alivechms/constants/color_scheme.dart';
+import 'package:alivechms/controllers/app_controller.dart';
 import 'package:alivechms/controllers/app_state.dart';
 import 'package:alivechms/screens/dashboard/dashboard_screen.dart';
 import 'package:alivechms/screens/login/login_screen.dart';
@@ -8,11 +9,21 @@ import 'package:alivechms/screens/onboarding/onboarding_screen.dart';
 import 'package:alivechms/screens/settings/settings_screen.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 
-void main() {
+// OPEN THE HIVE DB
+late Box aspBox;
+
+void main() async {
+  // INITIALIZE APP SETTINGS
+  aspBox = await AppController.initApp();
+
+  // ENSURE APP IS FULLY INITIALIZED
+  WidgetsFlutterBinding.ensureInitialized();
+  
   runApp(const MainApp());
 
   // SHOW WINDOW WITH CUSTOMIZED TITLE BAR
