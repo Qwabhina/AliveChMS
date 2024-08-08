@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'page_title.dart';
+
 class PageHeader extends StatelessWidget {
   final String pageName;
   const PageHeader({super.key, required this.pageName});
@@ -20,14 +22,7 @@ class PageHeader extends StatelessWidget {
                 fontSize: 14,
               ),
             ),
-            Text(
-              pageName,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.primaryContainer,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            PageTitle(pageName: pageName),
           ],
         ),
         Column(
