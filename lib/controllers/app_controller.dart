@@ -1,36 +1,37 @@
+import 'package:alivechms/main.dart';
 import 'package:flutter/material.dart';
-// import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 
 class AppController {
-  // // THE BOX NAME FOR THE LOCAL STORAGE
-  // static late Box appBox;
+  // THE BOX NAME FOR THE LOCAL STORAGE
+  static late Box appBox;
 
-  // // INITIALIZE APP SETTINGS
-  // static initApp() async {
-  //   await Hive.initFlutter();
-  //   return Hive.openBox('aspBox');
-  // }
+  // INITIALIZE APP SETTINGS
+  static initApp() async {
+    await Hive.initFlutter();
+    return Hive.openBox('aliveChMS');
+  }
 
-  // // RETRIEVE USER'S TOKEN FROM THE LOCAL STORAGE
-  // static String get userToken => aspBox.get('userToken', defaultValue: '');
+  // RETRIEVE USER'S TOKEN FROM THE LOCAL STORAGE
+  static String get userToken => aspBox.get('userToken', defaultValue: '');
 
-  // // SET FIRST RUN VALUE SINCE USER HAS RUN THE APP
-  // static void setFirstRun() {
-  //   aspBox.put('firstRun', 1);
-  // }
+  // SET FIRST RUN VALUE SINCE USER HAS RUN THE APP
+  static void setFirstRun() {
+    aspBox.put('firstRun', 1);
+  }
 
-  // // DETERMINE IF ITS FIRST TIME RUNNIG APP
-  // static bool isFirstRun = aspBox.get(
-  //           "firstRun",
-  //           defaultValue: 0,
-  //         ) ==
-  //         1
-  //     ? false
-  //     : true;
+  // DETERMINE IF ITS FIRST TIME RUNNIG APP
+  static bool isFirstRun = aspBox.get(
+            "firstRun",
+            defaultValue: 0,
+          ) ==
+          1
+      ? false
+      : true;
 
-  // // CHECK IF USER HAS LOGGED IN BEFORE
-  // static bool get userExists => aspBox.keys.contains('user') ? true : false;
+  // CHECK IF USER HAS LOGGED IN BEFORE
+  static bool get userExists => aspBox.keys.contains('user') ? true : false;
 
   // // OPEN URL
   // static Future<void> openLink(url) async {
