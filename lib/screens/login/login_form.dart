@@ -1,5 +1,7 @@
 import 'package:alivechms/constants/widgets/form_submit_button.dart';
 import 'package:alivechms/constants/widgets/form_textbox.dart';
+import 'package:alivechms/constants/widgets/page_section_header.dart';
+import 'package:alivechms/constants/widgets/page_title.dart';
 import 'package:alivechms/controllers/app_state.dart';
 import 'package:alivechms/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
@@ -26,12 +28,13 @@ class LoginForm extends StatelessWidget {
       child: Column(
         children: [
           const SizedBox(height: 20),
-          Text(
-            "Login",
-            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface,
-                  fontWeight: FontWeight.bold,
-                ),
+          const PageTitle(pageName: 'Welcome!', textSize: 24),
+          const PageSectionHeader(
+            text:
+                "Please enter your Username and Password to log into your account",
+            fontSize: 14,
+            textAlign: TextAlign.center,
+            fontWeight: FontWeight.normal,
           ),
           const SizedBox(height: 36),
           // USERNAME
