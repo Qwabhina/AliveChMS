@@ -32,6 +32,44 @@ class MyAppState extends ChangeNotifier {
     return ThemeMode.light;
   }
 
+  
+  void startLoading() {
+    isLoading = true;
+    notifyListeners();
+  }
+
+  void togglePasswordVisibility() {
+    if (isPasswordVisible) {
+      isPasswordVisible = false;
+    } else {
+      isPasswordVisible = true;
+    }
+    notifyListeners();
+  }
+
+  void stopLoading() {
+    isLoading = false;
+    notifyListeners();
+  }
+
+  void loginSuccess() {
+    isLoggedIn = true;
+    stopLoading();
+    notifyListeners();
+  }
+
+  void loginFailed(String error) {
+    isLoggedIn = false;
+    errorMessage = error;
+    notifyListeners();
+  }
+
+  void logout() {
+    isLoggedIn = false;
+    setCurrentPage(0, 'profile');
+    notifyListeners();
+  }
+
 
 
   void setCurrentPage(int index, String title) {
