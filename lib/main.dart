@@ -6,6 +6,7 @@ import 'package:alivechms/controllers/app_state.dart';
 import 'package:alivechms/screens/dashboard/dashboard_screen.dart';
 import 'package:alivechms/screens/login/login_screen.dart';
 import 'package:alivechms/screens/onboarding/onboarding_screen.dart';
+import 'package:alivechms/screens/profile/profile_screen.dart';
 import 'package:alivechms/screens/settings/settings_screen.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
@@ -74,9 +75,12 @@ class MainApp extends StatelessWidget {
           // home: AppController.isFirstRun
           //     ? const OnboardingScreen()
           //     : (AppController.userExists
-          //         ? const ProfilePage()
+          //         ? const DashboardScreen()
           //         : const LoginPage()),
-          home: const LoginPage(),
+          home: AppController.userExists
+              ? const DashboardScreen()
+              : const LoginPage(),
+          // home: const LoginPage(),
 
           // NAVIGATION
           navigatorKey: myAppState.navigatorKey,
@@ -86,7 +90,7 @@ class MainApp extends StatelessWidget {
             // '/forgotPass': (context) => const ForgotPasswordPage(),
             // '/resetPass': (context) => ResetPasswordPage(),
             // '/changePassword': (context) => ChangePasswordPage(),
-            // '/profile': (context) => const ProfilePage(),
+            '/profile': (context) => const ProfilePage(),
             // '/registration': (context) => const RegistrationPage(),
             '/settings': (context) => const SettingsPage(),
             '/onboarding': (context) => const OnboardingScreen(),

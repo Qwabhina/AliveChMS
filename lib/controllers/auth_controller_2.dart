@@ -15,12 +15,11 @@ class AuthController {
     String indexNumber,
     String password,
   ) async {
-    // Map<String, dynamic> stdData;
     appState.startLoading();
 
     bool isLoginSuccessful;
 
-    if (indexNumber == '5181040021' && password == '12345') {
+    if (indexNumber == 'admin' && password == '@123Four!!') {
       isLoginSuccessful = true;
     } else {
       isLoginSuccessful = false;

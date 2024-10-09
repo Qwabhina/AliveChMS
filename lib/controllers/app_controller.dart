@@ -72,6 +72,7 @@ class AppController {
     return ucfirstStr;
   }
 
+
 // COLORS FOR CUSTOM DIALOG
   static final Map<String, Color> _dialogColors = {
     "success": Colors.green.shade700,
@@ -102,16 +103,16 @@ class AppController {
         builder: (c) {
           return Center(
             child: Container(
-              width: MediaQuery.of(c).size.width * 0.8,
+              width: MediaQuery.of(c).size.width * 0.275,
               height: MediaQuery.of(c).size.height * 0.4,
               padding: const EdgeInsets.all(30),
               decoration: BoxDecoration(
                 color: Theme.of(c).colorScheme.surface,
                 borderRadius: BorderRadius.circular(20),
               ),
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.min,
+              child: ListView(
+                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  // mainAxisSize: MainAxisSize.min,
                   children: [
                     SizedBox(
                       width: double.infinity,

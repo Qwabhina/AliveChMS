@@ -11,9 +11,9 @@ class LoginForm extends StatelessWidget {
   LoginForm({super.key});
 
   // TEXT EDITING CONTROLLERS
+
   final TextEditingController _indexController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     // APP STATE
@@ -105,25 +105,7 @@ class LoginForm extends StatelessWidget {
                   'indexNumber': _indexController.text
                 }),
             child: Text(
-              "Forgot Password (Email)",
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface,
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
-          ),
-          const SizedBox(height: 8),
-          InkWell(
-            onTap: () => Navigator.pushNamed(
-              context,
-              '/forgotPass',
-              arguments: {
-                'forgotType': 'sms',
-                'indexNumber': _indexController.text
-              },
-            ),
-            child: Text(
-              "Forgot Password (SMS)",
+              "Forgot Password",
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     color: Theme.of(context).colorScheme.onSurface,
                     fontWeight: FontWeight.bold,

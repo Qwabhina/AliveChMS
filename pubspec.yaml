@@ -17,6 +17,8 @@ dependencies:
   http: ^1.2.2
   intl: ^0.19.0
   ionicons: ^0.2.2
+  paged_datatable: ^2.1.1
+  path_provider: ^2.1.4
   provider: ^6.1.2
   window_manager: ^0.3.9
 

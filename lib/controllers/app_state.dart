@@ -66,7 +66,7 @@ class MyAppState extends ChangeNotifier {
 
   void logout() {
     isLoggedIn = false;
-    setCurrentPage(0, 'profile');
+    setCurrentPage(0, 'Dashboard');
     notifyListeners();
   }
 

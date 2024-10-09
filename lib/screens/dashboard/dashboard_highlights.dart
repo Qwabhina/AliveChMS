@@ -1,3 +1,4 @@
+import 'package:alivechms/main.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
@@ -6,11 +7,13 @@ class DashboardHighlights extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Map<dynamic, dynamic> user = aspBox.get('user');
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         DashboardHighlightItem(
-          mainText: "24",
+          mainText: user['dashboard_overview']["active_users"],
           subText: "Total Registered Members",
           mainColor: Theme.of(context).colorScheme.onPrimary,
           subColor: Theme.of(context).colorScheme.onPrimary,
@@ -19,7 +22,7 @@ class DashboardHighlights extends StatelessWidget {
         const SizedBox(width: 20),
         DashboardHighlightItem(
           flexValue: 2,
-          mainText: "GH¢ 14,305.50",
+          mainText: "GH¢ ${user['dashboard_overview']["monthly_revenue"]}",
           mainColor: Theme.of(context).colorScheme.primaryContainer,
           subText: "Total Revenue for This Month",
           subColor: Theme.of(context).colorScheme.primaryContainer,
@@ -30,7 +33,10 @@ class DashboardHighlights extends StatelessWidget {
         ),
         const SizedBox(width: 20),
         DashboardHighlightItem(
-          mainText: "18",
+          mainText: double.parse(user['dashboard_overview']
+                  ["average_midweek_service_attendance"])
+              .round()
+              .toString(),
           mainColor: Theme.of(context).colorScheme.primaryContainer,
           subText: "Average Attendance for Midweek Service",
           subColor: Theme.of(context).colorScheme.primaryContainer,
@@ -38,7 +44,10 @@ class DashboardHighlights extends StatelessWidget {
         ),
         const SizedBox(width: 20),
         DashboardHighlightItem(
-          mainText: "14",
+          mainText: double.parse(user['dashboard_overview']
+                  ["average_sunday_service_attendance"])
+              .round()
+              .toString(),
           mainColor: Theme.of(context).colorScheme.primaryContainer,
           subText: "Average Attendance for Sunday Service",
           subColor: Theme.of(context).colorScheme.primaryContainer,

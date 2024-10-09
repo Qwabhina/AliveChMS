@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:alivechms/controllers/app_api.dart';
 import 'package:alivechms/controllers/app_controller.dart';
 import 'package:alivechms/controllers/app_state.dart';
+import 'package:alivechms/main.dart';
 // import 'package:aamusted_sp/models/student_model.dart';
 import 'package:flutter/material.dart';
 
@@ -18,105 +19,36 @@ class AuthController {
   ) async {
     appState.startLoading();
 
-    List<String> baseUrls = [
-      // 'https://smgtcs.aamusted.edu.gh',
-      'https://smgt2.aamusted.edu.gh',
-      'https://collsmgt.aamusted.edu.gh',
-      'https://smgt.aamusted.edu.gh',
-    ];
-
     try {
-      // CALL APP API's LOGIN METHOD
-      // Map<String, dynamic> initialResponseData = await api.login(
-      //   indexNumber,
-      //   password,
-      // );
-
-      // // CHECK FOR SUCCESSFUL LOGIN
-      // if (initialResponseData['status'] == 'Ok') {
-      //   // STOP LOADING
-      //   appState.stopLoading();
-
-      //   // CHECK IF ITS A FIRST TIME LOGIN
-      //   bool isFirstTimeLogin = initialResponseData['firstTime'];
-
-      //   if (isFirstTimeLogin) {
-      //     appState.navigatorKey.currentState?.pushReplacementNamed('/resetPass',
-      //         arguments: {'index': indexNumber});
-      //   } else {
-      //     // PERSIST USER DATA
-
-      //     // ADD SAVED USER DATA TO LOCAL STORAGE
-      //     aspBox.put('user', initialResponseData);
-      //     aspBox.put('userToken', initialResponseData['token']);
-      //     AppController.setFirstRun();
-
-      //     //REDIRECT TO PROFILE PAGE
-      //     appState.navigatorKey.currentState!.pushReplacementNamed('/profile');
-      //   }
-      // } else {
+      final bool okStatus;
       String errMessage = '';
 
-      for (final endpoint in baseUrls) {
-        // BUILD A NEW ENDPOINT URL STRING
-        String newEndpoint = "$endpoint/${api.endpoints['login']}";
+      Map<String, dynamic> responseData = await api.login(
+        indexNumber,
+        password,
+      );
 
-        // MAKE ANOTHER REQUEST
-        Map<String, dynamic> responseData = await api.login(
-          indexNumber,
-          password,
-          endpoint: newEndpoint,
-        );
-        final bool okStatus;
-        final bool isFirstTimeLogin;
+      okStatus = responseData['type'] == 'ok';
 
-        // CHECK IF THE USER EXISTS IN THE CURRENT ENDPOINT
-        if (responseData['exists']) {
-          appState.stopLoading();
-
-          // PERSIST THE CURRENT ENDPOINT
-          // aspBox.put('baseUrl', endpoint);
-
-          // SHORT-CIRCUITING
-          okStatus = responseData['status'] == 'Ok';
-          isFirstTimeLogin = responseData['firstTime'];
-
-          // CHECK IF ITS A FIRST TIME LOGIN
-          if (okStatus && isFirstTimeLogin) {
-            // REDIRECT TO THE PASSWORD RESET PAGE
-            appState.navigatorKey.currentState?.pushReplacementNamed(
-              '/resetPass',
-              arguments: {
-                'index': indexNumber,
-              },
-            );
-          }
-          // IF IT'S NOT FIRST TIME LOGIN, CONTINUE
-          else if (okStatus && !isFirstTimeLogin) {
+      appState.stopLoading();    
+          
+      if (okStatus) {
             // PERSIST USER DATA
             // ADD FETCHED USER DATA TO LOCAL STORAGE
-            // aspBox.put('user', responseData);
+        aspBox.put('user', responseData);
             // aspBox.put('userToken', responseData['token']);
             // AppController.setFirstRun();
 
             //REDIRECT TO PROFILE PAGE
             appState.navigatorKey.currentState!
-                .pushReplacementNamed('/profile');
+                .pushReplacementNamed('/dashboard');
 
             appState.isLoggedIn = true;
-          }
-          // DISPLAY THE RETURNED ERROR
-          else {
-            errMessage = responseData['msg'];
-          }
-
-          break;
-        }
-        // IF ENDPOINT DOESN'T EXIST, CONTINUE
-        else {
-          errMessage = responseData['msg'];
-          // continue;
-        }
+      }
+      // DISPLAY THE RETURNED ERROR
+      else {
+        errMessage = responseData['content'];
+            
       }
 
       // SHOW [CUSTOM] ALERT DIALOG
@@ -127,14 +59,16 @@ class AuthController {
           'error',
         );
       }
+      
     } catch (error) {
       // ERROR HANDLING
       AppController.showAlert(
         appState.navigatorKey.currentContext!,
-        // "An Error Ocurred: ${error.toString()}",
-        "An Error Ocurred.\nCheck your internet settings and try again.",
+        "An Error Ocurred: ${error.toString()}",
+        // "An Error Ocurred.\nCheck your internet settings and try again.",
         'error',
       );
+      
     } finally {
       appState.stopLoading();
     }
@@ -199,7 +133,7 @@ class AuthController {
   }
 
   void logoutUser() async {
-    // await aspBox.delete("user");
+    await aspBox.delete("user");
     appState.logout();
 
     Navigator.pushReplacementNamed(

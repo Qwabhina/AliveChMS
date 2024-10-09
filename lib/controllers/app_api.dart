@@ -5,33 +5,17 @@ import 'package:http/http.dart' as http;
 
 class AppAPI {
   // BASE URL FOR API
-  // static const String baseURL = 'http://89.116.229.230:3002';
-  static const String baseURL = 'https://smgt.aamusted.edu.gh';
-
-  // static String baseURL = aspBox.get(
-  //   'baseUrl',
-  //   defaultValue: 'https://smgt.aamusted.edu.gh',
-  // );
+  static const String baseURL = 'http://localhost/my_projects/alivechms';
 
   // LIST OF API ENDPOINTS
   static final Map<String, String> urls = {
-    'login': '$baseURL/student_login',
+    'login': '$baseURL/process-login.php',
+    'getAllMembers': '$baseURL/get-members.php',
     'passwordChange': '$baseURL/change_student_password',
-    'getMountedCourse': '$baseURL/get_student_mounted_courses',
     'saveCourseRegistration': '$baseURL/student_register_courses',
     'dropCourse': '$baseURL/drop_course',
     'resetPassword': '$baseURL/init_recover_password',
     'resetPasswordPhone': '$baseURL/reset_password_sms',
-  };
-
-  final Map<String, String> endpoints = {
-    'login': 'student_login',
-    'passwordChange': 'change_student_password',
-    'getMountedCourse': 'get_student_mounted_courses',
-    'saveCourseRegistration': 'student_register_courses',
-    'dropCourse': 'drop_course',
-    'resetPassword': 'init_recover_password',
-    'resetPasswordPhone': 'reset_password_sms',
   };
 
   // REQUEST METHOD FOR MAKING ALL REQUESTS
@@ -49,7 +33,8 @@ class AppAPI {
       if (headers.isEmpty) {
         headers = Map<String, String>.from(options.headers);
         headers['Content-Type'] = 'application/json';
-        headers['Authorization'] = 'Bearer ${AppController.userToken}';
+        // headers['Content-Type'] = 'application/x-www-form-urlencoded';
+        // headers['Authorization'] = 'Bearer ${AppController.userToken}';
       }
 
       // ADD IT TO THE HTTP OPTIONS
@@ -82,13 +67,16 @@ class AppAPI {
   // LOG USERS IN
   Future<Map<String, dynamic>> login(
     String indexNo,
-    String password, {
-    String endpoint = '',
-  }) async {
+    String password,
+  ) async {
     final res = await request(
       'post',
-      endpoint.isNotEmpty ? endpoint : urls['login']!,
-      {'indexNo': indexNo, 'password': password},
+      urls['login']!,
+      {
+        // 'btn-sign-in': true,
+        'userid': indexNo,
+        'passkey': password,
+      },
     );
     return res;
   }
@@ -96,6 +84,12 @@ class AppAPI {
   // GET MOUNTED COURSES
   Future<Map<String, dynamic>> getMountedCourses() async {
     final res = await request('post', urls['getMountedCourse']!);
+    return res;
+  }
+
+  // GET MOUNTED COURSES
+  Future<Map<String, dynamic>> getAllMembers() async {
+    final res = await request('post', urls['getAllMembers']!);
     return res;
   }
 
