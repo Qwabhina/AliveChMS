@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:alivechms/controllers/app_controller.dart';
 import 'package:http/http.dart' as http;
 
 class AppAPI {

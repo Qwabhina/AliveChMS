@@ -23,7 +23,7 @@ class AppTabView extends StatelessWidget {
             indicator: BoxDecoration(
                 color: Theme.of(context)
                     .colorScheme
-                    .surfaceVariant
+                    .surfaceContainerHighest
                     .withOpacity(0.5),
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(16),
@@ -39,7 +39,7 @@ class AppTabView extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Theme.of(context)
                     .colorScheme
-                    .surfaceVariant
+                    .surfaceContainerHighest
                     .withOpacity(0.5),
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(16),
