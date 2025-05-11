@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 class OverviewModel {
   final Bio bio;
