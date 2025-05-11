@@ -65,7 +65,7 @@ class AppAPI {
 
   // LOG USERS IN
   Future<Map<String, dynamic>> login(
-    String indexNo,
+    String userName,
     String password,
   ) async {
     final res = await request(
@@ -73,7 +73,7 @@ class AppAPI {
       urls['login']!,
       {
         // 'btn-sign-in': true,
-        'userid': indexNo,
+        'userid': userName,
         'passkey': password,
       },
     );
@@ -93,12 +93,12 @@ class AppAPI {
   }
 
   Future<Map<String, dynamic>> changePassword(String newPassword,
-      String confPassword, String oldPassword, String indexNo) async {
+      String confPassword, String oldPassword, String userName) async {
     final res = await request('post', urls['passwordChange']!, {
       'newPassword': newPassword,
       'confPassword': confPassword,
       'oldPassword': oldPassword,
-      'indexNo': indexNo
+      'userName': userName
     });
     return res;
   }
@@ -117,16 +117,16 @@ class AppAPI {
     return res;
   }
 
-  Future<Map<String, dynamic>> resetPassword(String indexNo) async {
+  Future<Map<String, dynamic>> resetPassword(String userName) async {
     final res =
-        await request('post', urls['resetPassword']!, {'indexNo': indexNo});
+        await request('post', urls['resetPassword']!, {'userName': userName});
     return res;
   }
 
   Future<Map<String, dynamic>> resetPasswordPhone(
-      String indexNo, String phone) async {
+      String userName, String phone) async {
     final res = await request('post', urls['resetPasswordPhone']!,
-        {'indexNo': indexNo, 'phone': phone});
+        {'userName': userName, 'phone': phone});
     return res;
   }
 }
