@@ -12,7 +12,7 @@ class LoginForm extends StatelessWidget {
 
   // TEXT EDITING CONTROLLERS
 
-  final TextEditingController _indexController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class LoginForm extends StatelessWidget {
           const SizedBox(height: 36),
           // USERNAME
           FormTextBox(
-            ctrl: _indexController,
+            ctrl: _usernameController,
             label: "Username",
             hint: "Enter Your Username",
             inputType: TextInputType.text,
@@ -86,10 +86,10 @@ class LoginForm extends StatelessWidget {
                 : () {
                     if (loginFormKey.currentState!.validate()) {
                       authController.loginUser(
-                        _indexController.text,
+                        _usernameController.text,
                         _passwordController.text,
                       );
-                    } else if (_indexController.text.trim().isEmpty ||
+                    } else if (_usernameController.text.trim().isEmpty ||
                         _passwordController.text.trim().isEmpty) {
                       loginFormKey.currentState!.validate();
                     }
@@ -102,7 +102,7 @@ class LoginForm extends StatelessWidget {
             onTap: () => Navigator.pushNamed(context, '/forgotPass',
                 arguments: {
                   'forgotType': 'email',
-                  'indexNumber': _indexController.text
+                  'indexNumber': _usernameController.text
                 }),
             child: Text(
               "Forgot Password",

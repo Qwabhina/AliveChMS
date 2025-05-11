@@ -14,7 +14,7 @@ class AuthController {
   AppAPI api = AppAPI();
 
   Future<void> loginUser(
-    String indexNumber,
+    String userName,
     String password,
   ) async {
     appState.startLoading();
@@ -24,7 +24,7 @@ class AuthController {
       String errMessage = '';
 
       Map<String, dynamic> responseData = await api.login(
-        indexNumber,
+        userName,
         password,
       );
 
@@ -49,7 +49,6 @@ class AuthController {
       // DISPLAY THE RETURNED ERROR
       else {
         errMessage = responseData['content'];
-            
       }
 
       // SHOW [CUSTOM] ALERT DIALOG

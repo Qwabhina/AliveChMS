@@ -94,7 +94,7 @@ class Bio {
 
 class DashboardOverview {
   final int activeUsers;
-  final double monthlyRevenue;
+  final int monthlyRevenue;
   final double averageMidweekServiceAttendance;
   final double averageSundayServiceAttendance;
 
@@ -107,10 +107,10 @@ class DashboardOverview {
 
   factory DashboardOverview.fromJson(Map<dynamic, dynamic> json) {
     return DashboardOverview(
-      activeUsers: json['active_users'] ?? 0,
-      monthlyRevenue: double.parse(json['monthly_revenue'] ?? 0),
+      activeUsers: json['active_users'] ?? 0.0,
+      monthlyRevenue: json['monthly_revenue'] ?? 0.0,
       averageMidweekServiceAttendance:
-          double.parse(json['average_midweek_service_attendance']),
+          json['average_midweek_service_attendance'],
       averageSundayServiceAttendance:
           double.parse(json['average_sunday_service_attendance']),
     );
