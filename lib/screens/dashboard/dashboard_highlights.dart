@@ -1,4 +1,5 @@
 import 'package:alivechms/main.dart';
+import 'package:alivechms/models/dashboard/overview_models.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
@@ -7,13 +8,14 @@ class DashboardHighlights extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Map<dynamic, dynamic> user = aspBox.get('user');
+    final DashboardOverview user =
+        DashboardOverview.fromJson(aspBox.get('user'));
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         DashboardHighlightItem(
-          mainText: user['dashboard_overview']["active_users"],
+          mainText: user.activeUsers.toString(),
           subText: "Total Registered Members",
           mainColor: Theme.of(context).colorScheme.onPrimary,
           subColor: Theme.of(context).colorScheme.onPrimary,
@@ -22,7 +24,7 @@ class DashboardHighlights extends StatelessWidget {
         const SizedBox(width: 20),
         DashboardHighlightItem(
           flexValue: 2,
-          mainText: "GH¢ ${user['dashboard_overview']["monthly_revenue"]}",
+          mainText: "GH¢ ${user.monthlyRevenue.toString()}",
           mainColor: Theme.of(context).colorScheme.primaryContainer,
           subText: "Total Revenue for This Month",
           subColor: Theme.of(context).colorScheme.primaryContainer,
@@ -33,9 +35,7 @@ class DashboardHighlights extends StatelessWidget {
         ),
         const SizedBox(width: 20),
         DashboardHighlightItem(
-          mainText: double.parse(user['dashboard_overview']
-                  ["average_midweek_service_attendance"])
-              .round()
+          mainText: user.averageMidweekServiceAttendance.round()
               .toString(),
           mainColor: Theme.of(context).colorScheme.primaryContainer,
           subText: "Average Attendance for Midweek Service",
@@ -44,9 +44,7 @@ class DashboardHighlights extends StatelessWidget {
         ),
         const SizedBox(width: 20),
         DashboardHighlightItem(
-          mainText: double.parse(user['dashboard_overview']
-                  ["average_sunday_service_attendance"])
-              .round()
+          mainText: user.averageSundayServiceAttendance.round()
               .toString(),
           mainColor: Theme.of(context).colorScheme.primaryContainer,
           subText: "Average Attendance for Sunday Service",
