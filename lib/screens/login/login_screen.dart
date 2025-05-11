@@ -12,9 +12,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<MyAppState>(builder: (context, appState, child) {
       return Scaffold(
-        persistentFooterButtons: const [
-          Text("AliveChMS"),
-        ],
+        
         backgroundColor: Colors.white,
           body: Column(
             children: [
