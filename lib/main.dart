@@ -80,7 +80,6 @@ class MainApp extends StatelessWidget {
           home: AppController.userExists
               ? const DashboardScreen()
               : const LoginPage(),
-          // home: const LoginPage(),
 
           // NAVIGATION
           navigatorKey: myAppState.navigatorKey,
