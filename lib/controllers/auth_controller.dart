@@ -48,7 +48,7 @@ class AuthController {
       }
       // DISPLAY THE RETURNED ERROR
       else {
-        errMessage = responseData['content'];
+        errMessage = responseData['error'];
       }
 
       // SHOW [CUSTOM] ALERT DIALOG

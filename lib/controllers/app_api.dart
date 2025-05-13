@@ -32,7 +32,6 @@ class AppAPI {
       if (headers.isEmpty) {
         headers = Map<String, String>.from(options.headers);
         headers['Content-Type'] = 'application/json';
-        // headers['Content-Type'] = 'application/x-www-form-urlencoded';
         // headers['Authorization'] = 'Bearer ${AppController.userToken}';
       }
 
