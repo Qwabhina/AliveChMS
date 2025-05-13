@@ -68,6 +68,9 @@ class _LoginFormState extends State<LoginForm> {
               }
               return null;
             },
+              onFieldSubmitted: (value) {
+                FocusScope.of(context).nextFocus();
+              },
           ),
 
           const SizedBox(height: 22),
@@ -94,6 +97,14 @@ class _LoginFormState extends State<LoginForm> {
               }
               return null;
             },
+              onFieldSubmitted: (value) {
+                if (_formKey.currentState!.validate()) {
+                  authController.loginUser(
+                    _usernameController.text,
+                    _passwordController.text,
+                  );
+                }
+              },
           ),
 
           const SizedBox(height: 32),
