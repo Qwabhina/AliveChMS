@@ -20,7 +20,6 @@ class AuthController {
     appState.startLoading();
 
     try {
-      final bool okStatus;
       String errMessage = '';
 
       Map<String, dynamic> responseData = await api.login(
@@ -28,22 +27,17 @@ class AuthController {
         password,
       );
 
-      okStatus = responseData['type'] == 'ok';
-
       appState.stopLoading();    
           
-      if (okStatus) {
-            // PERSIST USER DATA
-            // ADD FETCHED USER DATA TO LOCAL STORAGE
-        // aspBox.put('user', responseData);
-        aspBox.put('user', responseData);
-            // aspBox.put('userToken', responseData['token']);
-            // AppController.setFirstRun();
+      if (responseData['type'] == 'ok') {
+        aspBox.put('user', responseData['bio']);
+        aspBox.put('access_token', responseData['access_token']);
+        aspBox.put('refresh_token', responseData['refresh_token']);
+        // AppController.setFirstRun();
 
-            //REDIRECT TO PROFILE PAGE
+        //REDIRECT TO PROFILE PAGE
         appState.navigatorKey.currentState!.pushReplacementNamed('/dashboard');
-
-            appState.isLoggedIn = true;
+        appState.isLoggedIn = true;
       }
       // DISPLAY THE RETURNED ERROR
       else {
@@ -56,7 +50,7 @@ class AuthController {
           appState.navigatorKey.currentContext!,
           errMessage,
           'error',
-        );
+        ); 
       }
       
     } catch (error) {
