@@ -82,10 +82,10 @@ class AppController {
   };
 
 // ICONS FOR CUSTOM DIALOG
-  static final Map<String, IconData> _dialogIcons = {
-    "success": Icons.check_circle_outline_rounded,
-    "error": Icons.cancel_outlined,
-    "info": Icons.info_outline_rounded,
+  static const Map<String, IconData> _dialogIcons = {
+    "success": Icons.check_circle_outline,
+    "error": Icons.error_outline,
+    "info": Icons.info_outline,
     "warning": Icons.warning_amber_rounded,
   };
 
@@ -95,70 +95,72 @@ class AppController {
     String message,
     String type, {
     bool onTop = false,
-  }) {
+    VoidCallback? onClose,
+}) {
+    final icon = _dialogIcons[type] ?? Icons.info;
+    final color = _dialogColors[type] ?? Colors.blue;
+
     return showDialog(
-        barrierDismissible: onTop,
-        useSafeArea: true,
-        context: ctx,
-        builder: (c) {
-          return Center(
-            child: Container(
-              width: MediaQuery.of(c).size.width * 0.275,
-              height: MediaQuery.of(c).size.height * 0.4,
-              padding: const EdgeInsets.all(30),
-              decoration: BoxDecoration(
-                color: Theme.of(c).colorScheme.surface,
-                borderRadius: BorderRadius.circular(20),
+      barrierDismissible: onTop,
+      useSafeArea: true,
+      context: ctx,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          contentPadding: const EdgeInsets.all(30),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                icon,
+                color: color,
+                size: 60,
               ),
-              child: ListView(
-                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  // mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox(
-                      width: double.infinity,
-                      child: Icon(
-                        _dialogIcons[type],
-                        color: _dialogColors[type],
-                        size: 60,
-                      ),
+              const SizedBox(height: 20),
+              SingleChildScrollView(
+                child: Text(
+                  message,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        color: Theme.of(context).colorScheme.onSurface,
                     ),
-                    // const Spacer(),
-                    Text(
-                      message,
-                      textAlign: TextAlign.center,
-                      style: Theme.of(c)
-                          .textTheme
-                          .bodyMedium!
-                          .copyWith(color: Theme.of(c).colorScheme.onSurface),
+                ),
+              ),
+              const SizedBox(height: 30),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: color,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      side: BorderSide(color: color, width: 3),
                     ),
-                    // const Spacer(),
-                    SizedBox(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: _dialogColors[type],
-                            elevation: 0,
-                            shape: RoundedRectangleBorder(
-                              side: BorderSide(
-                                color: _dialogColors[type]!,
-                                width: 3,
-                              ),
-                              borderRadius: BorderRadius.circular(10),
-                            )),
-                        onPressed: () => Navigator.pop(c),
-                        child: const Text(
-                          "Ok",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    if (onClose != null) onClose();
+                  },
+                  child: const Text(
+                    "Ok",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ]),
-            ),
-          );
-        });
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
+
 
   static showToast(
     BuildContext ctx,
