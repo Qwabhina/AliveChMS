@@ -38,7 +38,9 @@ class _LoginFormState extends State<LoginForm> {
 
     return Form(
       key: _formKey,
-      child: Column(
+      child: IgnorePointer(
+        ignoring: appState.isLoading,
+        child: Column(
         children: [
           const SizedBox(height: 20),
           const PageTitle(pageName: 'Welcome!', textSize: 24),
@@ -130,6 +132,7 @@ class _LoginFormState extends State<LoginForm> {
 
           const SizedBox(height: 10),
         ],
+        ),
       ),
     );
   }
