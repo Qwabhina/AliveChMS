@@ -7,6 +7,7 @@ class FormTextBox extends StatelessWidget {
       required this.inputType,
       required this.label,
       this.icon = const SizedBox(),
+      this.focusNode,
       this.hint = "",
       this.passwdBox = false,
       this.mlines = 1,
@@ -24,6 +25,7 @@ class FormTextBox extends StatelessWidget {
   final int mlines;
   final bool autoFocus;
   final EdgeInsetsGeometry padding;
+  final FocusNode? focusNode;
   final String? Function(String?)? validator;
   final void Function(String)? onFieldSubmitted;
   final Widget icon;
