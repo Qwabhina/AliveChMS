@@ -87,13 +87,9 @@ class MainApp extends StatelessWidget {
             '/login': (context) => const LoginPage(),
             '/dashboard': (context) => const DashboardScreen(),
             // '/forgotPass': (context) => const ForgotPasswordPage(),
-            // '/resetPass': (context) => ResetPasswordPage(),
-            // '/changePassword': (context) => ChangePasswordPage(),
             '/profile': (context) => const ProfilePage(),
-            // '/registration': (context) => const RegistrationPage(),
             '/settings': (context) => const SettingsPage(),
             '/onboarding': (context) => const OnboardingScreen(),
-            // '/medicals': (context) => const MedicalsPage(),
           },
         );
       }),
