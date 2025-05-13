@@ -49,7 +49,6 @@ class AppAPI {
 
       // CHECK IF REQUEST WAS SUCCESSFUL
       if (response.statusCode >= 200) {
-        print(response.body);
         return jsonDecode(response.body);
       } else {
         // THROW EXCEPTION ON ERROR

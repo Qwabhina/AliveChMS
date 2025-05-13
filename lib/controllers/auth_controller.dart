@@ -37,7 +37,6 @@ class AuthController {
             // ADD FETCHED USER DATA TO LOCAL STORAGE
         // aspBox.put('user', responseData);
         aspBox.put('user', responseData);
-        print(aspBox.get('user'));
             // aspBox.put('userToken', responseData['token']);
             // AppController.setFirstRun();
 
