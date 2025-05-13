@@ -7,24 +7,37 @@ import 'package:alivechms/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class LoginForm extends StatelessWidget {
-  LoginForm({super.key});
+class LoginForm extends StatefulWidget {
+  const LoginForm({super.key});
 
-  // TEXT EDITING CONTROLLERS
+  @override
+  State<LoginForm> createState() => _LoginFormState();
+}
 
+class _LoginFormState extends State<LoginForm> {
+  // Controllers
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  // Form Key
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    // APP STATE
-    MyAppState appState = Provider.of<MyAppState>(context);
-    // AUTH CONTROLLER
+    // App State
+    final MyAppState appState = Provider.of<MyAppState>(context);
+    // Auth Controller
     final AuthController authController = AuthController(appState);
-    // FORM KEY
-    final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
 
     return Form(
-      key: loginFormKey,
+      key: _formKey,
       child: Column(
         children: [
           const SizedBox(height: 20),
@@ -37,12 +50,14 @@ class LoginForm extends StatelessWidget {
             fontWeight: FontWeight.normal,
           ),
           const SizedBox(height: 36),
-          // USERNAME
+
+          // USERNAME FIELD
           FormTextBox(
             ctrl: _usernameController,
             label: "Username",
             hint: "Enter Your Username",
             inputType: TextInputType.text,
+            autoFocus: true,
             validator: (value) {
               if (value == null ||
                   value.trim().isEmpty ||
@@ -52,7 +67,9 @@ class LoginForm extends StatelessWidget {
               return null;
             },
           ),
+
           const SizedBox(height: 22),
+
           // PASSWORD FIELD
           FormTextBox(
             ctrl: _passwordController,
@@ -76,34 +93,32 @@ class LoginForm extends StatelessWidget {
               return null;
             },
           ),
+
           const SizedBox(height: 32),
 
           // LOGIN BUTTON
           FormSubmitButton(
             title: 'Login',
-            onTap: appState.isLoading
-                ? () {}
-                : () {
-                    if (loginFormKey.currentState!.validate()) {
-                      authController.loginUser(
-                        _usernameController.text,
-                        _passwordController.text,
-                      );
-                    } else if (_usernameController.text.trim().isEmpty ||
-                        _passwordController.text.trim().isEmpty) {
-                      loginFormKey.currentState!.validate();
-                    }
-                  },
+            loading: appState.isLoading,
+            onTap: () {
+              if (_formKey.currentState!.validate()) {
+                authController.loginUser(
+                  _usernameController.text,
+                  _passwordController.text,
+                );
+              }
+            },
           ),
 
-          // FORGOT PASSWORD BUTTONS
-          const SizedBox(height: 18),
+          const SizedBox(height: 24),
+
+          // FORGOT PASSWORD LINK
           InkWell(
-            onTap: () => Navigator.pushNamed(context, '/forgotPass',
-                arguments: {
-                  'forgotType': 'email',
-                  'indexNumber': _usernameController.text
-                }),
+            onTap: () =>
+                Navigator.pushNamed(context, '/forgotPass', arguments: {
+              'forgotType': 'email',
+              'indexNumber': _usernameController.text,
+            }),
             child: Text(
               "Forgot Password",
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -112,9 +127,8 @@ class LoginForm extends StatelessWidget {
                   ),
             ),
           ),
-          const SizedBox(
-            height: 10,
-          )
+
+          const SizedBox(height: 10),
         ],
       ),
     );
