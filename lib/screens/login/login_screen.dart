@@ -30,11 +30,11 @@ class LoginPage extends StatelessWidget {
                       color: Theme.of(context).colorScheme.surface,
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Column(
+                    child: const Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const HeroImage(),
+                        HeroImage(),
                         LoginForm(),
                       ],
                     ),
