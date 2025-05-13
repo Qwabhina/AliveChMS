@@ -4,11 +4,11 @@ import 'package:http/http.dart' as http;
 
 class AppAPI {
   // BASE URL FOR API
-  static const String baseURL = 'http://localhost/my_projects/alivechms';
+  static const String baseURL = 'http://www.onechurch.com';
 
   // LIST OF API ENDPOINTS
   static final Map<String, String> urls = {
-    'login': '$baseURL/process-login.php',
+    'login': '$baseURL/auth/login',
     'getAllMembers': '$baseURL/get-members.php',
     'passwordChange': '$baseURL/change_student_password',
     'saveCourseRegistration': '$baseURL/student_register_courses',
@@ -49,13 +49,12 @@ class AppAPI {
       final response = await http.Response.fromStream(res);
 
       // CHECK IF REQUEST WAS SUCCESSFUL
-      if (response.statusCode >= 200 && response.statusCode < 300) {
+      if (response.statusCode >= 200) {
+        print(response.body);
         return jsonDecode(response.body);
       } else {
         // THROW EXCEPTION ON ERROR
-        throw Exception(
-          'Error: ${response.statusCode} - ${response.reasonPhrase}',
-        );
+        throw Exception("Bad Request: ${response.statusCode}");
       }
     } catch (e) {
       // THROW EXCEPTION ON ERROR
@@ -72,17 +71,10 @@ class AppAPI {
       'post',
       urls['login']!,
       {
-        // 'btn-sign-in': true,
         'userid': userName,
         'passkey': password,
       },
     );
-    return res;
-  }
-
-  // GET MOUNTED COURSES
-  Future<Map<String, dynamic>> getMountedCourses() async {
-    final res = await request('post', urls['getMountedCourse']!);
     return res;
   }
 
@@ -103,30 +95,9 @@ class AppAPI {
     return res;
   }
 
-  Future<Map<String, dynamic>> saveCourseRegistration(
-    List<Map<String, dynamic>> data,
-  ) async {
-    final res =
-        await request('post', urls['saveCourseRegistration']!, {'data': data});
-    return res;
-  }
-
-  Future<Map<String, dynamic>> dropSavedCourse(
-      Map<String, dynamic> data) async {
-    final res = await request('post', urls['dropCourse']!, data);
-    return res;
-  }
-
   Future<Map<String, dynamic>> resetPassword(String userName) async {
     final res =
         await request('post', urls['resetPassword']!, {'userName': userName});
-    return res;
-  }
-
-  Future<Map<String, dynamic>> resetPasswordPhone(
-      String userName, String phone) async {
-    final res = await request('post', urls['resetPasswordPhone']!,
-        {'userName': userName, 'phone': phone});
     return res;
   }
 }
