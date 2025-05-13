@@ -1,6 +1,4 @@
-import 'package:alivechms/controllers/app_state.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class FormSubmitButton extends StatelessWidget {
   const FormSubmitButton({
@@ -11,6 +9,7 @@ class FormSubmitButton extends StatelessWidget {
     this.width = 0,
     this.disabled = false,
     this.icon,
+    this.loading = false,
   });
 
   final void Function()? onTap;
@@ -19,24 +18,25 @@ class FormSubmitButton extends StatelessWidget {
   final double width;
   final bool disabled;
   final IconData? icon;
+  final bool loading;
 
   @override
   Widget build(BuildContext context) {
-    // APP STATE
-    var appState = Provider.of<MyAppState>(context);
+    final buttonColor = Theme.of(context).colorScheme.primary;
+    final textColor = Theme.of(context).colorScheme.onPrimary;
 
-    // FORM BUTTON
     return SizedBox(
       width: fullWidth ? double.infinity : width,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            elevation: 0,
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            )),
-        onPressed: onTap,
-        child: appState.isLoading
+          elevation: 0,
+          backgroundColor: buttonColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        onPressed: disabled || loading ? null : onTap,
+        child: loading
             ? Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -44,16 +44,14 @@ class FormSubmitButton extends StatelessWidget {
                     width: 16,
                     height: 16,
                     child: CircularProgressIndicator(
-                      color: Theme.of(context).colorScheme.onPrimary,
+                      color: textColor,
                       strokeWidth: 2,
                     ),
                   ),
                   const SizedBox(width: 15),
                   Text(
                     'Loading...',
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                    ),
+                    style: TextStyle(color: textColor),
                   ),
                 ],
               )
@@ -62,15 +60,13 @@ class FormSubmitButton extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                    ),
+                    style: TextStyle(color: textColor),
                   ),
                   const SizedBox(width: 10),
                   if (icon != null)
                     Icon(
                       icon!,
-                      color: Theme.of(context).colorScheme.onPrimary,
+                      color: textColor,
                     ),
                 ],
               ),
