@@ -10,6 +10,7 @@ class FormTextBox extends StatelessWidget {
       this.hint = "",
       this.passwdBox = false,
       this.mlines = 1,
+      this.autoFocus = false,
       this.padding = const EdgeInsets.symmetric(horizontal: 16),
       this.validator})
       : _ctrl = ctrl;
@@ -20,6 +21,7 @@ class FormTextBox extends StatelessWidget {
   final TextInputType inputType;
   final bool passwdBox;
   final int mlines;
+  final bool autoFocus;
   final EdgeInsetsGeometry padding;
   final String? Function(String?)? validator;
   final Widget icon;
@@ -33,6 +35,7 @@ class FormTextBox extends StatelessWidget {
       obscureText: passwdBox,
       keyboardType: inputType,
       maxLines: mlines,
+      autofocus: autoFocus,
       cursorWidth: 3,
       style: TextStyle(
         color: Theme.of(context).colorScheme.onSurface,
