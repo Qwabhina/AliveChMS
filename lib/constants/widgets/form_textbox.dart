@@ -12,7 +12,8 @@ class FormTextBox extends StatelessWidget {
       this.mlines = 1,
       this.autoFocus = false,
       this.padding = const EdgeInsets.symmetric(horizontal: 16),
-      this.validator})
+      this.validator,
+      this.onFieldSubmitted})
       : _ctrl = ctrl;
 
   final TextEditingController _ctrl;
@@ -24,6 +25,7 @@ class FormTextBox extends StatelessWidget {
   final bool autoFocus;
   final EdgeInsetsGeometry padding;
   final String? Function(String?)? validator;
+  final void Function(String)? onFieldSubmitted;
   final Widget icon;
 
   @override
@@ -37,6 +39,7 @@ class FormTextBox extends StatelessWidget {
       maxLines: mlines,
       autofocus: autoFocus,
       cursorWidth: 3,
+      onFieldSubmitted: onFieldSubmitted,
       style: TextStyle(
         color: Theme.of(context).colorScheme.onSurface,
       ),
