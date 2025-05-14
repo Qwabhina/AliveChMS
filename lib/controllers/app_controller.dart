@@ -14,7 +14,7 @@ class AppController {
   }
 
   // RETRIEVE USER'S TOKEN FROM THE LOCAL STORAGE
-  static String get userToken => aspBox.get('userToken', defaultValue: '');
+  static String get userToken => aspBox.get('access_token', defaultValue: '');
 
   // SET FIRST RUN VALUE SINCE USER HAS RUN THE APP
   static void setFirstRun() {
