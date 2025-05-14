@@ -10,9 +10,9 @@ class AppAPI {
   // LIST OF API ENDPOINTS
   static final Map<String, String> urls = {
     'login': '$baseURL/auth/login',
-    'getAllMembers': '$baseURL/members/all',
+    'getAllMembers': '$baseURL/member/all',
     'logout': '$baseURL/auth/logout',
-    'getRecentMembers': '$baseURL/members/recent',
+    'getRecentMembers': '$baseURL/member/recent',
     'dashboardHighlights': '$baseURL/dashboard/highlights',
     'refreshToken': '$baseURL/auth/refresh',
   };
@@ -48,11 +48,11 @@ class AppAPI {
       final response = await http.Response.fromStream(res);
 
       // CHECK IF REQUEST WAS SUCCESSFUL
-      if (response.statusCode >= 200) {
       if (response.statusCode >= 200 && response.statusCode < 300) {
         final decoded = jsonDecode(response.body);
         return decoded;
       } else if (response.statusCode == 401) {
+
         // Attempt to refresh token
         try {
           final refreshResponse = await refreshAccessToken();
@@ -65,7 +65,9 @@ class AppAPI {
             ...headers,
             'Authorization': 'Bearer ${refreshResponse['access_token']}',
           });
+
           print("New Headers: ${retryOptions.headers}");
+
           retryOptions.body = jsonEncode(data);
           final retryRes = await http.Client().send(retryOptions);
           final retryResponse = await http.Response.fromStream(retryRes);
@@ -74,6 +76,7 @@ class AppAPI {
               retryResponse.statusCode < 300) {
             final retryDecoded = jsonDecode(retryResponse.body);
             return retryDecoded;
+
           } else {
             throw Exception(
                 "Retry failed: ${retryResponse.statusCode} - ${retryResponse.body}");
@@ -108,39 +111,27 @@ class AppAPI {
 
   // FETCH ALL MEMBERS
   Future<List<dynamic>> getAllMembers() async {
-    final accessToken = aspBox.get('access_token') as String? ?? '';
     final res = await request(
-      'post',
+      'get',
       urls['getAllMembers']!,
-      {},
-      {'Authorization': 'Bearer $accessToken'},
     );
-    print('getAllMembers Response Type: ${res.runtimeType}');
     return res is List<dynamic> ? res : (res['data'] as List<dynamic>);
   }
 
   // FETCH RECENT MEMBERS
   Future<List<dynamic>> getRecentMembers() async {
-    final accessToken = aspBox.get('access_token') as String? ?? '';
     final res = await request(
       'get',
       urls['getRecentMembers']!,
-      {},
-      {'Authorization': 'Bearer $accessToken'},
     );
-    print('getRecentMembers Response: $res');
-    print('getRecentMembers Response Type: ${res.runtimeType}');
-    return res is List<dynamic> ? res : (res['data'] as List<dynamic>);
+    return res;
   }
 
   // FETCH DASHBOARD HIGHLIGHTS
   Future<Map<String, dynamic>> getDashboardHighlights() async {
-    final accessToken = aspBox.get('access_token') as String? ?? '';
     final res = await request(
       'get',
       urls['dashboardHighlights']!,
-      {},
-      {'Authorization': 'Bearer $accessToken'},
     );
     return res as Map<String, dynamic>;
   }
