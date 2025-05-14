@@ -1,5 +1,4 @@
 import 'package:alivechms/controllers/app_api.dart';
-import 'package:alivechms/main.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 class DashboardHighlights extends StatelessWidget {
@@ -7,13 +6,7 @@ class DashboardHighlights extends StatelessWidget {
 
   Future<Map<String, dynamic>> fetchDashboardData() async {
     final api = AppAPI();
-    final accessToken = aspBox.get('access_token') as String? ?? '';
-    final response = await api.request(
-      'get',
-      AppAPI.urls['dashboardHighlights']!,
-      {},
-      {'Authorization': 'Bearer $accessToken'},
-    );
+    final response = await api.getDashboardHighlights();
     return response;
   }
 
