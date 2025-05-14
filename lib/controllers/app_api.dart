@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:alivechms/controllers/app_controller.dart';
 import 'package:http/http.dart' as http;
 
 class AppAPI {
@@ -9,12 +10,8 @@ class AppAPI {
   // LIST OF API ENDPOINTS
   static final Map<String, String> urls = {
     'login': '$baseURL/auth/login',
-    'getAllMembers': '$baseURL/get-members.php',
-    'passwordChange': '$baseURL/change_student_password',
-    'saveCourseRegistration': '$baseURL/student_register_courses',
-    'dropCourse': '$baseURL/drop_course',
-    'resetPassword': '$baseURL/init_recover_password',
-    'resetPasswordPhone': '$baseURL/reset_password_sms',
+    'getAllMembers': '$baseURL/members/all',
+    'logout': '$baseURL/auth/logout',
   };
 
   // REQUEST METHOD FOR MAKING ALL REQUESTS
@@ -32,7 +29,7 @@ class AppAPI {
       if (headers.isEmpty) {
         headers = Map<String, String>.from(options.headers);
         headers['Content-Type'] = 'application/json';
-        // headers['Authorization'] = 'Bearer ${AppController.userToken}';
+        headers['Authorization'] = 'Bearer ${AppController.userToken}';
       }
 
       // ADD IT TO THE HTTP OPTIONS
@@ -76,7 +73,6 @@ class AppAPI {
     return res;
   }
 
-  // GET MOUNTED COURSES
   Future<Map<String, dynamic>> getAllMembers() async {
     final res = await request('post', urls['getAllMembers']!);
     return res;
