@@ -10,8 +10,8 @@ class HomepageScreen extends StatelessWidget {
 
   Future<List<Member>> fetchRecentMembers() async {
     final response = await AppAPI().getRecentMembers();
-    print(response.toString());
-    return (response as List).map((json) => Member.fromJson(json)).toList();
+    // print(response.toString());
+    return response.map((json) => Member.fromJson(json)).toList();
   }
 
   @override
@@ -37,39 +37,48 @@ class HomepageScreen extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.circular(10),
             ),
+
             child: FutureBuilder<List<Member>>(
               future: fetchRecentMembers(),
+
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
+
                 } else if (snapshot.hasError) {
+                  print(snapshot.error.toString());
+
                   return Center(
                       child: Text(
                     'Error loading members: ${snapshot.error.toString()}',
-                  ));
+                    ),
+                  );
+                  
                 } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                   final members = snapshot.data!;
-                  return Column(
-                    children: members.map((member) {
-                      return ListTile(
-                        leading: CircleAvatar(
-                          child: Text(member.mbrFirstName.isNotEmpty
-                              ? member.mbrFirstName[0]
-                              : ''),
-                        ),
-                        title: Text(
-                          '${member.mbrFirstName} ${member.mbrFamilyName}',
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        subtitle: Text(
-                          'Registered: ${DateFormat.yMMMMEEEEd().format(DateTime.parse(member.mbrRegistrationDate))}',
-                        ),
-                        trailing: Text(member.mbrID),
-                        onTap: () {
-                          // Handle tap event (e.g., navigate to member details)
-                        },
-                      );
-                    }).toList(),
+                  return SingleChildScrollView(
+                    child: Column(
+                      children: members.map((member) {
+                        return ListTile(
+                          leading: CircleAvatar(
+                            child: Text(member.mbrFirstName.isNotEmpty
+                                ? member.mbrFirstName[0]
+                                : ''),
+                          ),
+                          title: Text(
+                            '${member.mbrFirstName} ${member.mbrFamilyName}',
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: Text(
+                            'Registered: ${DateFormat.yMMMMEEEEd().format(DateTime.parse(member.mbrRegistrationDate))}',
+                          ),
+                          trailing: Text(member.mbrID),
+                          onTap: () {
+                            // Handle tap event (e.g., navigate to member details)
+                          },
+                        );
+                      }).toList(),
+                    ),
                   );
                 }
                 return const Center(child: Text('No recent registrations'));
