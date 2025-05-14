@@ -43,11 +43,10 @@ class HomepageScreen extends StatelessWidget {
 
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
+
                   return const Center(child: CircularProgressIndicator());
 
                 } else if (snapshot.hasError) {
-                  print(snapshot.error.toString());
-
                   return Center(
                       child: Text(
                     'Error loading members: ${snapshot.error.toString()}',
