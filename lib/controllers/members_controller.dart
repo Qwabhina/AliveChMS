@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:alivechms/controllers/app_api.dart';
 import 'package:alivechms/controllers/app_state.dart';
 import 'package:flutter/material.dart';
@@ -9,22 +7,6 @@ class MembersController {
 
   MembersController(this.appState);
   AppAPI api = AppAPI();
-
-  Future<List<Map<String, dynamic>>> getAllMembers(
-    int limit,
-    int offset,
-    String sortField,
-    bool ascending,
-  ) async {
-    final response = await api.getAllMembers();
-
-    if (response['type'] == 'ok') {
-      List<dynamic> data = json.decode(response['content']);
-      return data.map((item) => item as Map<String, dynamic>).toList();
-    } else {
-      throw Exception('Failed to load data');
-    }
-  }
 
   openAddForm() {
     return showBottomSheet(
@@ -40,10 +22,7 @@ class MembersController {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: ListView(
-                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  // mainAxisSize: MainAxisSize.min,
                   children: [
-                    // const Spacer(),
                     Text(
                       "Form",
                       textAlign: TextAlign.center,
