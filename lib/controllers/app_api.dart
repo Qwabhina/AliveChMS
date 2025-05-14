@@ -11,6 +11,8 @@ class AppAPI {
   static final Map<String, String> urls = {
     'login': '$baseURL/auth/login',
     'getAllMembers': '$baseURL/members/all',
+    'getRecentMembers': '$baseURL/members/recent',
+    'dashboardHighlights': '$baseURL/dashboard/highlights',
     'logout': '$baseURL/auth/logout',
   };
 
