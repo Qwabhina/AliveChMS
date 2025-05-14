@@ -35,7 +35,7 @@ class Member {
 
   factory Member.fromJson(Map<String, dynamic> json) {
     return Member(
-      mbrID: json['MbrID'],
+      mbrID: json['MbrID'] ?? json['MbrCustomID'],
       username: json['Username'],
       lastLoginAt: json['LastLoginAt'],
       mbrFirstName: json['MbrFirstName'],
