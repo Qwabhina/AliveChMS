@@ -1,6 +1,6 @@
 import 'dart:convert';
-
 import 'package:alivechms/controllers/app_controller.dart';
+import 'package:alivechms/main.dart';
 import 'package:http/http.dart' as http;
 
 class AppAPI {
@@ -10,14 +10,15 @@ class AppAPI {
   // LIST OF API ENDPOINTS
   static final Map<String, String> urls = {
     'login': '$baseURL/auth/login',
-    'getAllMembers': '$baseURL/member/all',
-    'getRecentMembers': '$baseURL/member/recent',
-    'dashboardHighlights': '$baseURL/dashboard/highlights',
+    'getAllMembers': '$baseURL/members/all',
     'logout': '$baseURL/auth/logout',
+    'getRecentMembers': '$baseURL/members/recent',
+    'dashboardHighlights': '$baseURL/dashboard/highlights',
+    'refreshToken': '$baseURL/auth/refresh',
   };
 
   // REQUEST METHOD FOR MAKING ALL REQUESTS
-  Future<Map<String, dynamic>> request(
+  Future<dynamic> request(
     String method,
     String url, [
     Map<String, dynamic> data = const {},
@@ -48,13 +49,43 @@ class AppAPI {
 
       // CHECK IF REQUEST WAS SUCCESSFUL
       if (response.statusCode >= 200) {
-        return jsonDecode(response.body);
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        final decoded = jsonDecode(response.body);
+        return decoded;
+      } else if (response.statusCode == 401) {
+        // Attempt to refresh token
+        try {
+          final refreshResponse = await refreshAccessToken();
+          await aspBox.put('access_token', refreshResponse['access_token']);
+          await aspBox.put('refresh_token', refreshResponse['refresh_token']);
+
+          // Retry original request with new token
+          final retryOptions = http.Request(method, Uri.parse(url));
+          retryOptions.headers.addAll({
+            ...headers,
+            'Authorization': 'Bearer ${refreshResponse['access_token']}',
+          });
+          print("New Headers: ${retryOptions.headers}");
+          retryOptions.body = jsonEncode(data);
+          final retryRes = await http.Client().send(retryOptions);
+          final retryResponse = await http.Response.fromStream(retryRes);
+
+          if (retryResponse.statusCode >= 200 &&
+              retryResponse.statusCode < 300) {
+            final retryDecoded = jsonDecode(retryResponse.body);
+            return retryDecoded;
+          } else {
+            throw Exception(
+                "Retry failed: ${retryResponse.statusCode} - ${retryResponse.body}");
+          }
+        } catch (refreshError) {
+          throw Exception("Token refresh failed: $refreshError");
+        }
       } else {
-        // THROW EXCEPTION ON ERROR
-        throw Exception("Bad Request: ${response.statusCode}");
+        throw Exception(
+            "Bad Request: ${response.statusCode} - ${response.body}");
       }
     } catch (e) {
-      // THROW EXCEPTION ON ERROR
       throw Exception('Error: $e');
     }
   }
@@ -62,7 +93,7 @@ class AppAPI {
   // LOG USERS IN
   Future<Map<String, dynamic>> login(
     String userName,
-    String password
+    String password,
   ) async {
     final res = await request(
       'post',
@@ -72,12 +103,57 @@ class AppAPI {
         'passkey': password,
       },
     );
-    return res;
+    return res as Map<String, dynamic>;
   }
 
-  Future<Map<String, dynamic>> getAllMembers() async {
-    final res = await request('get', urls['getAllMembers']!);
-    return res;
+  // FETCH ALL MEMBERS
+  Future<List<dynamic>> getAllMembers() async {
+    final accessToken = aspBox.get('access_token') as String? ?? '';
+    final res = await request(
+      'post',
+      urls['getAllMembers']!,
+      {},
+      {'Authorization': 'Bearer $accessToken'},
+    );
+    print('getAllMembers Response Type: ${res.runtimeType}');
+    return res is List<dynamic> ? res : (res['data'] as List<dynamic>);
+  }
+
+  // FETCH RECENT MEMBERS
+  Future<List<dynamic>> getRecentMembers() async {
+    final accessToken = aspBox.get('access_token') as String? ?? '';
+    final res = await request(
+      'get',
+      urls['getRecentMembers']!,
+      {},
+      {'Authorization': 'Bearer $accessToken'},
+    );
+    print('getRecentMembers Response: $res');
+    print('getRecentMembers Response Type: ${res.runtimeType}');
+    return res is List<dynamic> ? res : (res['data'] as List<dynamic>);
+  }
+
+  // FETCH DASHBOARD HIGHLIGHTS
+  Future<Map<String, dynamic>> getDashboardHighlights() async {
+    final accessToken = aspBox.get('access_token') as String? ?? '';
+    final res = await request(
+      'get',
+      urls['dashboardHighlights']!,
+      {},
+      {'Authorization': 'Bearer $accessToken'},
+    );
+    return res as Map<String, dynamic>;
+  }
+
+  // REFRESH ACCESS TOKEN
+  Future<Map<String, dynamic>> refreshAccessToken() async {
+    final refreshToken = aspBox.get('refresh_token') as String? ?? '';
+    final res = await request(
+      'post',
+      urls['refreshToken']!,
+      {'refresh_token': refreshToken},
+    );
+    return res as Map<String, dynamic>;
   }
 
   Future<Map<String, dynamic>> changePassword(String newPassword,
@@ -88,27 +164,12 @@ class AppAPI {
       'oldPassword': oldPassword,
       'userName': userName
     });
-    return res;
+    return res as Map<String, dynamic>;
   }
 
   Future<Map<String, dynamic>> resetPassword(String userName) async {
     final res =
         await request('post', urls['resetPassword']!, {'userName': userName});
-    return res;
-  }
-
-Future<Map<String, dynamic>> getDashboardHighlights() async {
-    final response = await request('get', urls['dashboardHighlights']!);
-    return response;
-  }
-
-  Future<Map<String, dynamic>> getRecentMembers() async {
-    final response = await request('get', AppAPI.urls['getRecentMembers']!);
-    return response;
-  }
-
-  Future<Map<String, dynamic>> logout() async {
-    final response = await request('get', AppAPI.urls['logout']!);
-    return response;
+    return res as Map<String, dynamic>;
   }
 }
