@@ -36,8 +36,9 @@ class AuthController {
         // AppController.setFirstRun();
 
         //REDIRECT TO PROFILE PAGE
-        appState.navigatorKey.currentState!.pushReplacementNamed('/dashboard');
-        appState.isLoggedIn = true;
+        appState
+          ..navigatorKey.currentState!.pushReplacementNamed('/dashboard')
+          ..isLoggedIn = true;
       }
       // DISPLAY THE RETURNED ERROR
       else {
