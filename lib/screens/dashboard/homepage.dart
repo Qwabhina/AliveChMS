@@ -1,6 +1,5 @@
 import 'package:alivechms/constants/widgets/page_section_header.dart';
 import 'package:alivechms/controllers/app_api.dart';
-import 'package:alivechms/main.dart';
 import 'package:alivechms/models/member.model.dart';
 import 'package:alivechms/screens/dashboard/dashboard_highlights.dart';
 import 'package:flutter/material.dart';
@@ -10,14 +9,8 @@ class HomepageScreen extends StatelessWidget {
   const HomepageScreen({super.key});
 
   Future<List<Member>> fetchRecentMembers() async {
-    final api = AppAPI();
-    final accessToken = aspBox.get('access_token') as String? ?? '';
-    final response = await api.request(
-      'get',
-      '${AppAPI.baseURL}/members/recent',
-      {},
-      {'Authorization': 'Bearer $accessToken'},
-    );
+    final response = await AppAPI().getRecentMembers();
+    print(response.toString());
     return (response as List).map((json) => Member.fromJson(json)).toList();
   }
 
@@ -50,7 +43,10 @@ class HomepageScreen extends StatelessWidget {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
-                  return const Center(child: Text('Error loading members'));
+                  return Center(
+                      child: Text(
+                    'Error loading members: ${snapshot.error.toString()}',
+                  ));
                 } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                   final members = snapshot.data!;
                   return Column(
