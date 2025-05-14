@@ -10,8 +10,8 @@ class AppAPI {
   // LIST OF API ENDPOINTS
   static final Map<String, String> urls = {
     'login': '$baseURL/auth/login',
-    'getAllMembers': '$baseURL/members/all',
-    'getRecentMembers': '$baseURL/members/recent',
+    'getAllMembers': '$baseURL/member/all',
+    'getRecentMembers': '$baseURL/member/recent',
     'dashboardHighlights': '$baseURL/dashboard/highlights',
     'logout': '$baseURL/auth/logout',
   };
@@ -62,7 +62,7 @@ class AppAPI {
   // LOG USERS IN
   Future<Map<String, dynamic>> login(
     String userName,
-    String password,
+    String password
   ) async {
     final res = await request(
       'post',
@@ -76,7 +76,7 @@ class AppAPI {
   }
 
   Future<Map<String, dynamic>> getAllMembers() async {
-    final res = await request('post', urls['getAllMembers']!);
+    final res = await request('get', urls['getAllMembers']!);
     return res;
   }
 
@@ -95,5 +95,20 @@ class AppAPI {
     final res =
         await request('post', urls['resetPassword']!, {'userName': userName});
     return res;
+  }
+
+Future<Map<String, dynamic>> getDashboardHighlights() async {
+    final response = await request('get', urls['dashboardHighlights']!);
+    return response;
+  }
+
+  Future<Map<String, dynamic>> getRecentMembers() async {
+    final response = await request('get', AppAPI.urls['getRecentMembers']!);
+    return response;
+  }
+
+  Future<Map<String, dynamic>> logout() async {
+    final response = await request('get', AppAPI.urls['logout']!);
+    return response;
   }
 }
