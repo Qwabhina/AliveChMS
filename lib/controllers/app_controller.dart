@@ -14,7 +14,8 @@ class AppController {
   }
 
   // RETRIEVE USER'S TOKEN FROM THE LOCAL STORAGE
-  static String get userToken => aspBox.get('access_token', defaultValue: '');
+  static String get userToken =>
+      aspBox.get('access_token', defaultValue: '').toString();
 
   // SET FIRST RUN VALUE SINCE USER HAS RUN THE APP
   static void setFirstRun() {
@@ -31,7 +32,11 @@ class AppController {
       : true;
 
   // CHECK IF USER HAS LOGGED IN BEFORE
-  static bool get userExists => aspBox.keys.contains('user') ? true : false;
+  static bool get userExists => (aspBox.keys.contains('user') &&
+          aspBox.get('access_token').toString().isNotEmpty &&
+          aspBox.get('refresh_token').toString().isNotEmpty)
+      ? true
+      : false;
 
   // // OPEN URL
   // static Future<void> openLink(url) async {
