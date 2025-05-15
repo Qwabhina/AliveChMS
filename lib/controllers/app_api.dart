@@ -66,8 +66,6 @@ class AppAPI {
             'Authorization': 'Bearer ${refreshResponse['access_token']}',
           });
 
-          print("New Headers: ${retryOptions.headers}");
-
           retryOptions.body = jsonEncode(data);
           final retryRes = await http.Client().send(retryOptions);
           final retryResponse = await http.Response.fromStream(retryRes);
