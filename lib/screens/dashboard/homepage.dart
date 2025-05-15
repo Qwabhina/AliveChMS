@@ -55,29 +55,27 @@ class HomepageScreen extends StatelessWidget {
                   
                 } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                   final members = snapshot.data!;
-                  return SingleChildScrollView(
-                    child: Column(
-                      children: members.map((member) {
-                        return ListTile(
-                          leading: CircleAvatar(
-                            child: Text(member.mbrFirstName.isNotEmpty
-                                ? member.mbrFirstName[0]
-                                : ''),
-                          ),
-                          title: Text(
-                            '${member.mbrFirstName} ${member.mbrFamilyName}',
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          subtitle: Text(
-                            'Registered: ${DateFormat.yMMMMEEEEd().format(DateTime.parse(member.mbrRegistrationDate))}',
-                          ),
-                          trailing: Text(member.mbrID),
-                          onTap: () {
-                            // Handle tap event (e.g., navigate to member details)
-                          },
-                        );
-                      }).toList(),
-                    ),
+                  return Column(
+                    children: members.map((member) {
+                      return ListTile(
+                        leading: CircleAvatar(
+                          child: Text(member.mbrFirstName.isNotEmpty
+                              ? member.mbrFirstName[0]
+                              : ''),
+                        ),
+                        title: Text(
+                          '${member.mbrFirstName} ${member.mbrFamilyName}',
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: Text(
+                          'Registered: ${DateFormat.yMMMMEEEEd().format(DateTime.parse(member.mbrRegistrationDate))}',
+                        ),
+                        trailing: Text(member.mbrID),
+                        onTap: () {
+                          // Handle tap event (e.g., navigate to member details)
+                        },
+                      );
+                    }).toList(),
                   );
                 }
                 return const Center(child: Text('No recent registrations'));
