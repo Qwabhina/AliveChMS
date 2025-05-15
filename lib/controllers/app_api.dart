@@ -106,6 +106,23 @@ class AppAPI {
     );
     return res as Map<String, dynamic>;
   }
+  
+  // LOG USER OUT
+  Future<Map<String, dynamic>> logout() async {
+    try {
+      final res = await request('post', urls['logout']!);
+
+      await aspBox.delete('access_token');
+      await aspBox.delete('refresh_token');
+      await aspBox.delete('user');
+      return res as Map<String, dynamic>;
+    } catch (e) {
+      await aspBox.delete('access_token');
+      await aspBox.delete('refresh_token');
+      await aspBox.delete('user');
+      throw Exception('Logout failed: $e');
+    }
+  }
 
   // FETCH ALL MEMBERS
   Future<List<dynamic>> getAllMembers() async {
