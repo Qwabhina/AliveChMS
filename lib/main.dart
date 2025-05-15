@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:alivechms/constants/color_scheme.dart';
 import 'package:alivechms/controllers/app_controller.dart';
 import 'package:alivechms/controllers/app_state.dart';
+import 'package:alivechms/screens/dashboard/dashboard_page.dart';
 import 'package:alivechms/screens/dashboard/dashboard_screen.dart';
 import 'package:alivechms/screens/login/login_screen.dart';
 import 'package:alivechms/screens/onboarding/onboarding_screen.dart';
@@ -78,7 +79,8 @@ class MainApp extends StatelessWidget {
           //         ? const DashboardScreen()
           //         : const LoginPage()),
           home: AppController.userExists
-              ? const DashboardScreen()
+              ? const DashboardPage()
+              // ? const DashboardScreen()
               : const LoginPage(),
 
           // NAVIGATION
