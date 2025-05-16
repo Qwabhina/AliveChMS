@@ -58,8 +58,8 @@ class AuthController {
       // ERROR HANDLING
       AppController.showAlert(
         appState.navigatorKey.currentContext!,
-        "An Error Ocurred: ${error.toString()}",
-        // "An Error Ocurred.\nCheck your internet settings and try again.",
+        // "An Error Ocurred: ${error.toString()}",
+        "An Error Ocurred.\nCheck your internet settings and try again.",
         'error',
       );
       

@@ -79,8 +79,8 @@ class MainApp extends StatelessWidget {
           //         ? const DashboardScreen()
           //         : const LoginPage()),
           home: AppController.userExists
-              ? const DashboardPage()
-              // ? const DashboardScreen()
+              // ? const DashboardPage()
+              ? const DashboardScreen()
               : const LoginPage(),
 
           // NAVIGATION
