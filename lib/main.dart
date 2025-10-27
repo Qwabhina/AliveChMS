@@ -8,11 +8,14 @@ import 'package:alivechms/screens/login/login_screen.dart';
 import 'package:alivechms/screens/onboarding/onboarding_screen.dart';
 import 'package:alivechms/screens/profile/profile_screen.dart';
 import 'package:alivechms/screens/settings/settings_screen.dart';
+import 'package:alivechms/screens/webb_ui/webb_ui_page.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webb_ui/webb_ui.dart';
 import 'package:window_manager/window_manager.dart';
 
 // OPEN THE HIVE DB
@@ -56,17 +59,20 @@ class MainApp extends StatelessWidget {
           title: 'AliveChMS',
 
           // APP THEME
-          theme: ThemeData(
-            useMaterial3: true,
+          // theme: ThemeData(
+          //   useMaterial3: true,
+          //   colorScheme: lightColorScheme,
+          // textTheme: GoogleFonts.openSansTextTheme(),
+          // ),
+          theme: webbUILightTheme().copyWith(
             colorScheme: lightColorScheme,
-            // textTheme: GoogleFonts.syste(),
+            textTheme: GoogleFonts.ubuntuTextTheme(),
           ),
-
           // DARK THEME
           darkTheme: ThemeData(
             useMaterial3: true,
             colorScheme: darkColorScheme,
-            // textTheme: GoogleFonts.openSansTextTheme(),
+            textTheme: GoogleFonts.openSansTextTheme(),
           ),
 
           themeMode: myAppState.appThemeMode,
@@ -91,6 +97,7 @@ class MainApp extends StatelessWidget {
             '/profile': (context) => const ProfilePage(),
             '/settings': (context) => const SettingsPage(),
             '/onboarding': (context) => const OnboardingScreen(),
+            '/webb_ui': (context) => const WebbUIPage(),
           },
         );
       }),
