@@ -5,8 +5,14 @@ class GroupsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Groups Page', style: TextStyle(fontSize: 24)),
+    return Center(
+      child: InkWell(
+        onDoubleTap: () => Navigator.pushNamed(context, '/webb_ui'),
+        child: const Text(
+          'Groups Page',
+          style: TextStyle(fontSize: 24),
+        ),
+      ),
     );
   }
 }
